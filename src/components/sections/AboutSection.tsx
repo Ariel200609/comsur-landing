@@ -4,10 +4,10 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 // TEMP: reemplazar por fotos reales de la empresa (oficina, equipo, instalaciones)
 const images = [
-  { src: "https://picsum.photos/seed/comsur-office/1000/750", alt: "Oficinas de Comsur en Bahía Blanca" },
-  { src: "https://picsum.photos/seed/comsur-team/1000/750", alt: "Equipo técnico de Comsur" },
-  { src: "https://picsum.photos/seed/comsur-network/1000/750", alt: "Instalación de infraestructura de redes" },
-  { src: "https://picsum.photos/seed/comsur-datacenter/1000/750", alt: "Monitoreo y data center" },
+  { src: "/hero.jpg", alt: "Oficinas de Comsur en Bahía Blanca" },
+  { src: "/hero.jpg", alt: "Equipo técnico de Comsur" },
+  { src: "/hero.jpg", alt: "Instalación de infraestructura de redes" },
+  { src: "/hero.jpg", alt: "Monitoreo y data center" },
 ];
 
 function ImageCarousel() {
@@ -44,11 +44,11 @@ function ImageCarousel() {
       {/* Degradado inferior para legibilidad de los dots */}
       <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/40 to-transparent pointer-events-none" />
 
-      {/* Badge de años, dato real preservado del diseño anterior */}
+      {/* Badge de años, dato real preservado del diseño anterior 
       <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm rounded-xl px-4 py-3 shadow-sm">
         <span className="block text-3xl font-extrabold text-blue-600 leading-none">+25</span>
         <span className="text-[11px] font-semibold text-slate-600 uppercase tracking-wider">Años de trayectoria</span>
-      </div>
+      </div>*/}
 
       {/* Flechas, visibles on hover en desktop */}
       <button
