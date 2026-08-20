@@ -14,16 +14,13 @@ export default function AboutSection() {
             transition={{ duration: 0.6, ease: "easeOut" }}
           >
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
-              Soporte Técnico Total
+              26 años acompañando la transformación digital
             </h2>
             <p className="text-lg text-slate-600 mb-6 leading-relaxed">
-              Comsur es un referente en consultoría tecnológica con más de 25 años de experiencia.
+              Desde el año 2000 diseñamos, implementamos y damos soporte a la infraestructura tecnológica de empresas de todo el país.
             </p>
             <p className="text-lg text-slate-600 mb-6 leading-relaxed">
-              Nuestra misión es proporcionarte las soluciones que tu empresa necesita para integrar la tecnología en sus procesos y mantenerse a la vanguardia.
-            </p>
-            <p className="text-lg text-slate-600 leading-relaxed font-medium text-slate-800 border-l-4 border-blue-600 pl-4">
-              Nuestro equipo de expertos está listo para acompañarte en cada paso del camino hacia tu transformación digital.
+             Somos miembros de CESSI (Cámara de la Industria Argentina del Software) y participamos de los Premios Sadosky, el reconocimiento más importante del sector tech en Argentina.
             </p>
           </motion.div>
 
