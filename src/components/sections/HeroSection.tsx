@@ -53,14 +53,14 @@ export default function HeroSection() {
             </motion.div>
 
             {/* Línea de confianza - datos reales, sin inventar */}
-            <motion.p
+            {/* <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.4 }}
               className="mt-6 text-xs sm:text-sm text-slate-300/90 tracking-wide"
             >
               +25 años de trayectoria &nbsp;·&nbsp; Alcance nacional &nbsp;·&nbsp; Partners oficiales Fiserv &amp; Clover
-            </motion.p>
+            </motion.p> */}
           </div>
         </div>
         

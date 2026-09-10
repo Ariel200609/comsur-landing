@@ -5,6 +5,7 @@ import ServicesGrid from "./components/sections/ServicesGrid";
 import FloatingWhatsApp from "./components/ui/FloatingWhatsApp";
 import ContactDirect from './components/sections/ContactDirect'; 
 import Footer from "./components/layout/Footer";
+import CarouselSection from "./components/sections/CarouselSection";
 
 function App() {
   return (
@@ -13,7 +14,8 @@ function App() {
       <main className="min-h-screen bg-white relative">
         <HeroSection />
         <AboutSection />
-        <ServicesGrid />
+         
+        <CarouselSection />
         <ContactDirect />
         <Footer />
       </main>
