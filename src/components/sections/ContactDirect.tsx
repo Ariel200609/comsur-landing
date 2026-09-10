@@ -1,162 +1,95 @@
-import React, { useRef, useState } from 'react';
-import { motion } from 'framer-motion';
-import { MessageCircle, Mail, MapPin, ArrowRight } from 'lucide-react';
-import { cn } from '../../lib/utils'; 
+import { motion } from "framer-motion";
 
-// --- SUB-COMPONENTE CON LÓGICA 3D ---
-interface TiltCardProps {
-  children: React.ReactNode;
-  href: string;
-  delay?: number;
-}
-
-function TiltCard({ children, href, delay = 0 }: TiltCardProps) {
-  const cardRef = useRef<HTMLAnchorElement>(null);
-  const [tiltStyle, setTiltStyle] = useState<React.CSSProperties>({
-    transform: "perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)",
-  });
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    if (!cardRef.current) return;
-
-    const rect = cardRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    const rotateX = ((y - rect.height / 2) / (rect.height / 2)) * -6;
-    const rotateY = ((x - rect.width / 2) / (rect.width / 2)) * 6;
-
-    setTiltStyle({
-      transform: `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`,
-      transition: "transform 0.1s ease-out",
-    });
-  };
-
-  const handleMouseLeave = () => {
-    setTiltStyle({
-      transform: "perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)",
-      transition: "transform 0.5s ease-out",
-    });
-  };
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-50px' }}
-      transition={{ duration: 0.5, ease: 'easeOut', delay }}
-      className="h-full"
-    >
-      <a
-        href={href}
-        target={href.startsWith('http') ? '_blank' : '_self'}
-        rel={href.startsWith('http') ? 'noopener noreferrer' : ''}
-        ref={cardRef}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
-        className={cn(
-          // OPTIMIZACIÓN RESPONSIVE: p-6 en móvil, p-8 en tablet, p-10 en escritorio
-          "group relative flex flex-col h-full p-6 sm:p-8 lg:p-10 block w-full",
-          "bg-white rounded-3xl border border-slate-200 shadow-sm",
-          "hover:shadow-xl hover:shadow-blue-900/10 hover:border-blue-200"
-        )}
-        style={{
-          ...tiltStyle,
-          transformStyle: "preserve-3d", 
-        }}
-      >
-        <div 
-          style={{ transform: "translateZ(40px)" }} 
-          className="flex flex-col h-full pointer-events-none"
-        >
-          {children}
-        </div>
-      </a>
-    </motion.div>
-  );
-}
-
-// --- COMPONENTE PRINCIPAL ---
 export default function ContactDirect() {
   return (
-    // OPTIMIZACIÓN RESPONSIVE: py-16 en móvil, py-24 en escritorio
-    <section className="py-16 md:py-24 bg-slate-50 scroll-mt-24" id="contacto">
-      <div className="max-w-6xl mx-auto px-6 lg:px-8">
-        
-        <div className="text-center mb-12 md:mb-16">
-          <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
-            Contacto Directo
-          </h2>
-          <p className="mt-4 text-base md:text-lg text-slate-600 max-w-2xl mx-auto">
-            Estamos a disposición para brindar soluciones tecnológicas a la medida de su empresa. Comuníquese directamente con nuestro equipo.
-          </p>
-        </div>
+    <section id="contacto" className="py-24 px-6 lg:px-12 bg-white w-full relative border-t border-gray-100" >
+      <div className="container mx-auto max-w-6xl relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
-        {/* OPTIMIZACIÓN RESPONSIVE: grid-cols-1 apila en móvil. lg:grid-cols-3 pone las 3 al lado en PC. */}
-        <div className="flex flex-col lg:flex-row lg:items-stretch gap-6 md:gap-8">
-          
-          {/* Tarjeta WhatsApp */}
-          <TiltCard href="https://wa.me/5492914134444" delay={0}>
-            <div className="flex-1">
-              <div className="flex h-12 w-12 md:h-14 md:w-14 items-center justify-center rounded-2xl bg-blue-50/50 border border-blue-100 text-blue-600 mb-6 md:mb-8 group-hover:bg-blue-100 transition-colors duration-300">
-                <MessageCircle className="h-6 w-6 md:h-7 md:w-7" strokeWidth={1.5} />
-              </div>
-              <h3 className="text-xl md:text-2xl font-semibold text-slate-900 tracking-tight">Vía WhatsApp</h3>
-              <p className="mt-3 md:mt-4 text-slate-600 leading-relaxed text-sm md:text-base">
-                Asistencia ágil y directa. Escríbanos para consultas operativas o coordinación de servicios técnicos.
-              </p>
-            </div>
-            <div className="mt-8 md:mt-10 pt-6 md:pt-8 border-t border-slate-100">
-              <p className="text-lg md:text-xl font-semibold text-slate-900 mb-3 md:mb-4 tracking-tight">
-                +54 9 291 413-4444
-              </p>
-              <div className="flex items-center text-blue-600 font-medium text-sm md:text-base">
-                Iniciar chat <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-2" />
-              </div>
-            </div>
-          </TiltCard>
+          {/* Columna Izquierda: Información Directa con Línea Lateral */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="border-l-4 border-blue-600 pl-6 md:pl-10 py-2"
+          >
+            <span className="text-blue-600 font-semibold text-sm tracking-widest uppercase mb-4 block">
+              Soporte Especializado
+            </span>
+            <h2 className="text-4xl md:text-5xl font-extrabold text-slate-800 tracking-tight mb-6">
+              Transformemos su <br/><span className="text-blue-600">infraestructura</span>
+            </h2>
+            <p className="text-slate-500 text-lg mb-10 leading-relaxed max-w-md">
+              Ya sea para actualizar su red, implementar seguridad integral o integrar medios de pago, nuestros expertos están listos para asesorarlo.
+            </p>
 
-          {/* Tarjeta Email */}
-          <TiltCard href="mailto:info@comsur.com" delay={0.1}>
-            <div className="flex-1">
-              <div className="flex h-12 w-12 md:h-14 md:w-14 items-center justify-center rounded-2xl bg-blue-50/50 border border-blue-100 text-blue-600 mb-6 md:mb-8 group-hover:bg-blue-100 transition-colors duration-300">
-                <Mail className="h-6 w-6 md:h-7 md:w-7" strokeWidth={1.5} />
+            <div className="space-y-8">
+              {/* WhatsApp */}
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 rounded-lg bg-blue-600 text-white shadow-lg shadow-blue-600/30 flex items-center justify-center flex-shrink-0 transition-transform hover:scale-105">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                  </svg>
+                </div>
+                <div>
+                  <h4 className="text-slate-800 font-semibold text-lg">WhatsApp Corporativo</h4>
+                  <p className="text-slate-500 text-sm mt-1 mb-2">Asistencia ágil y directa.</p>
+                  <a href="https://wa.me/5492914134444" target="_blank" rel="noreferrer" className="text-blue-600 hover:text-blue-800 font-bold text-sm transition-colors flex items-center gap-1">+54 9 291 413-4444 &rarr;</a>
+                </div>
               </div>
-              <h3 className="text-xl md:text-2xl font-semibold text-slate-900 tracking-tight">Vía Correo</h3>
-              <p className="mt-3 md:mt-4 text-slate-600 leading-relaxed text-sm md:text-base">
-                Canal formal para propuestas comerciales, licitaciones o el envío de documentación detallada.
-              </p>
-            </div>
-            <div className="mt-8 md:mt-10 pt-6 md:pt-8 border-t border-slate-100">
-              <p className="text-lg md:text-xl font-semibold text-slate-900 mb-3 md:mb-4 tracking-tight">
-                info@comsur.com
-              </p>
-              <div className="flex items-center text-blue-600 font-medium text-sm md:text-base">
-                Enviar correo <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-2" />
+              
+              {/* Email */}
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 rounded-lg bg-blue-600 text-white shadow-lg shadow-blue-600/30 flex items-center justify-center flex-shrink-0 transition-transform hover:scale-105">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                </div>
+                <div>
+                  <h4 className="text-slate-800 font-semibold text-lg">Correo Electrónico</h4>
+                  <p className="text-slate-500 text-sm mt-1 mb-2">Para licitaciones y proyectos.</p>
+                  <a href="mailto:info@comsur.com" className="text-blue-600 hover:text-blue-800 font-bold text-sm transition-colors flex items-center gap-1">info@comsur.com &rarr;</a>
+                </div>
+              </div>
+              
+              {/* Sede Central */}
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 rounded-lg bg-blue-600 text-white shadow-lg shadow-blue-600/30 flex items-center justify-center flex-shrink-0 transition-transform hover:scale-105">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.243-4.243a8 8 0 1111.314 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                </div>
+                <div>
+                  <h4 className="text-slate-800 font-semibold text-lg">Sede Central</h4>
+                  <p className="text-slate-500 text-sm mt-1 mb-2">Atención presencial B2B.</p>
+                  <a href="https://maps.google.com/?q=Berutti+544,+Bahia+Blanca" target="_blank" rel="noreferrer" className="text-blue-600 hover:text-blue-800 font-bold text-sm transition-colors flex items-center gap-1">Berutti 544, Bahía Blanca &rarr;</a>
+                </div>
               </div>
             </div>
-          </TiltCard>
+          </motion.div>
 
-          {/* Tarjeta Ubicación */}
-          <TiltCard href="https://maps.google.com/?q=Berutti+544,+8000+Bahia+Blanca,+Buenos+Aires,+Argentina" delay={0.2}>
-            <div className="flex-1">
-              <div className="flex h-12 w-12 md:h-14 md:w-14 items-center justify-center rounded-2xl bg-blue-50/50 border border-blue-100 text-blue-600 mb-6 md:mb-8 group-hover:bg-blue-100 transition-colors duration-300">
-                <MapPin className="h-6 w-6 md:h-7 md:w-7" strokeWidth={1.5} />
-              </div>
-              <h3 className="text-xl md:text-2xl font-semibold text-slate-900 tracking-tight">Sede Central</h3>
-              <p className="mt-3 md:mt-4 text-slate-600 leading-relaxed text-sm md:text-base">
-                Visite nuestras oficinas para asesoramiento presencial y reuniones de planificación estratégica.
-              </p>
-            </div>
-            <div className="mt-8 md:mt-10 pt-6 md:pt-8 border-t border-slate-100">
-              <p className="text-lg md:text-xl font-semibold text-slate-900 mb-3 md:mb-4 tracking-tight">
-                Berutti 544
-              </p>
-              <div className="flex items-center text-blue-600 font-medium text-sm md:text-base">
-                Ver en mapa <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-2" />
-              </div>
-            </div>
-          </TiltCard>
+          {/* Columna Derecha: Mapa Interactivo de la Sede en Bahía Blanca */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="w-full h-[400px] md:h-[550px] rounded-3xl overflow-hidden shadow-soft border border-gray-200 bg-gray-50 relative group"
+          >
+            <iframe
+              title="Ubicación Sede Central COMSUR"
+              src="https://maps.google.com/maps?q=Berutti+544,+Bahia+Blanca&t=&z=15&ie=UTF8&iwloc=&output=embed"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen={false}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className="w-full h-full grayscale-[30%] opacity-90 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700"
+            ></iframe>
+          </motion.div>
 
         </div>
       </div>

@@ -13,7 +13,7 @@ function App() {
       <main className="min-h-screen bg-white relative">
         <HeroSection />
         <AboutSection />
-         
+        
         <CarouselSection />
         <ContactDirect />
         <Footer />
